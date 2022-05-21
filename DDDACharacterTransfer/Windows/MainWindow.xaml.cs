@@ -103,6 +103,7 @@ namespace DDDACharacterTransfer
                 bool ok = _Sav.Load(opf.FileName);
                 if (ok)
                 {
+                    _Preset.Clear();
                     _PresetManager.SetSav(_Sav);
                     SetTextBoxValue(InputSavFileTxtBox, opf.FileName);
 
@@ -150,6 +151,18 @@ namespace DDDACharacterTransfer
             {
                 SetTextBoxValue(SteamIdTxtBox, _Sav.GetSteamId());
                 SetTextBoxValue(PlayerNameTxtBox, _Sav.GetPlayerName());
+
+                if (!string.IsNullOrEmpty(_Sav.XmlData.GetPawnName()))
+                {
+                    SetControlEnabledState(PawnNameTxtBox, true);
+                    SetTextBoxValue(PawnNameTxtBox, _Sav.GetPawnName());
+                    SetControlVisibility(NoPawnWarningTextBlock, Visibility.Collapsed);
+                }
+                else
+                {
+                    SetControlEnabledState(PawnNameTxtBox, false);
+                    SetControlVisibility(NoPawnWarningTextBlock, Visibility.Visible);
+                }
             }
             else NoSaveFileLoadedMessage();
         }
@@ -161,6 +174,9 @@ namespace DDDACharacterTransfer
                 long.TryParse(SteamIdTxtBox.Text, out var steamId);
                 if (!_Sav.SetSteamId(steamId)) MessageBox.Show("Failed to set Steam Id!", "Failed to set Steam Id!", MessageBoxButton.OK, MessageBoxImage.Error);
                 if (!_Sav.SetPlayerName(PlayerNameTxtBox.Text)) MessageBox.Show("Failed to set player name!", "Failed to set player name!", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                if (!string.IsNullOrEmpty(_Sav.GetPawnName()))
+                    if (!_Sav.SetPawnName(PawnNameTxtBox.Text)) MessageBox.Show("Failed to set pawn name!", "Failed to set pawn name!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else NoSaveFileLoadedMessage();
         }
@@ -195,6 +211,12 @@ namespace DDDACharacterTransfer
             else NoSaveFileLoadedMessage();
         }
 
+        void ResetPreset()
+        {
+            if (_Preset != null && _Preset.IsLoaded())
+                _Preset.Clear();
+        }
+
         void TransferCharacter()
         {
             if (HasSaveFileLoaded())
@@ -206,6 +228,7 @@ namespace DDDACharacterTransfer
                     _Preset.LoadXml(generatedPreset.OuterXml);
 
                     generatedPreset = null;
+                    MessageBox.Show("Applying from selected input player please.");
                 }
 
                 _PresetManager.ApplyPreset(_SelectedTargetPlayer, _SelectedReplacementType);
@@ -241,6 +264,16 @@ namespace DDDACharacterTransfer
         void SetComboBoxItemIndex(ComboBox comboBox, int index)
         {
             Dispatcher.BeginInvoke(new Action(() => comboBox.SelectedIndex = index));
+        }
+
+        void SetControlVisibility(Control control, Visibility visibility)
+        {
+            Dispatcher.BeginInvoke(new Action(() => control.Visibility = visibility));
+        }
+
+        void SetControlVisibility(UIElement control, Visibility visibility)
+        {
+            Dispatcher.BeginInvoke(new Action(() => control.Visibility = visibility));
         }
 
 
@@ -325,6 +358,11 @@ namespace DDDACharacterTransfer
         private void LibraryLink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
         {
             Process.Start("explorer.exe", e.Uri.ToString());
+        }
+
+        private void ResetPresetChangesBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ResetPreset();
         }
     }
 }

@@ -31,6 +31,12 @@
                         <TextBox Margin="8,8,8,8" Height="25" x:Name="SteamIdTxtBox"/>
                         <Label Margin="8,8,8,8" Content="Player Name" FontWeight="Bold" />
                         <TextBox Margin="8,8,8,8" Height="25" x:Name="PlayerNameTxtBox"/>
+
+                        <Label Margin="8,8,8,8" Content="Pawn Name" FontWeight="Bold" />
+                        <TextBox Margin="8,8,8,8" Height="25" x:Name="PawnNameTxtBox"/>
+                        <TextBlock Margin="8,8,8,8" Height="25" x:Name="NoPawnWarningTextBlock" Text="Pawn not yet obtained." Background="#00000000" Foreground="Red" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed" />
+
+                        <!-- Apply Button -->
                         <Button Margin="8,8,8,8" x:Name="ApplyProfileChangesBtn" Content="Apply"  FontWeight="Bold" Click="ApplyProfileChangesBtn_Click" />
                     </StackPanel>
                 </TabItem>
@@ -58,7 +64,11 @@
                         <Label Margin="8,8,8,8" Content="Replacement Mode" FontWeight="Bold" />
                         <ComboBox Margin="8,8,8,8" Height="25" x:Name="ReplacementTypeCombBox" SelectionChanged="ReplacementTypeCombBox_SelectionChanged"/>
 
+                        <!-- Warning -->
+                        <TextBlock Margin="8,8,8,8" TextWrapping="WrapWithOverflow" Text="Character Transfer will override the player or pawn name when applying a preset or transferring, however you can always reapply your profile changes in the Profile Settings tab." FontWeight="Bold" Foreground="Red" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" />
+
                         <!-- Apply Changes -->
+                        <Button Margin="8,8,8,8" x:Name="ResetPresetChangesBtn" Content="Reset"  FontWeight="Bold" Click="ResetPresetChangesBtn_Click" />
                         <Button Margin="8,8,8,8" x:Name="ApplyTransferChangesBtn" Content="Transfer"  FontWeight="Bold" Click="ApplyTransferChangesBtn_Click" />
                     </StackPanel>
                 </TabItem>
