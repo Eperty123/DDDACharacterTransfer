@@ -69,6 +69,11 @@
                         <TextBlock Margin="8,8,8,8" Text="Made By: Eperty123" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" />
                         <TextBlock x:Name="YearTextBlock" Margin="8,8,8,8" FontWeight="Bold" Text="2022" FontSize="18" HorizontalAlignment="Center" />
                         <TextBlock Margin="8,8,8,8" FontWeight="Bold" FontSize="18" HorizontalAlignment="Center">
+                            <Hyperlink x:Name="GitHubRepoLink" NavigateUri="https://github.com/Eperty123/DDDACharacterTransfer" RequestNavigate="LibraryLink_RequestNavigate">
+                                https://github.com/Eperty123/DDDACharacterTransfer
+                            </Hyperlink>
+                        </TextBlock>
+                        <TextBlock Margin="8,8,8,8" FontWeight="Bold" FontSize="18" HorizontalAlignment="Center">
                             <Hyperlink x:Name="LibraryLink" NavigateUri="https://github.com/Eperty123/DDDASaveToolSharp" RequestNavigate="LibraryLink_RequestNavigate">
                                 https://github.com/Eperty123/DDDASaveToolSharp
                             </Hyperlink>
