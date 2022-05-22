@@ -228,7 +228,7 @@ namespace DDDACharacterTransfer
                     _Preset.LoadXml(generatedPreset.OuterXml);
 
                     generatedPreset = null;
-                    MessageBox.Show("Applying from selected input player please.");
+                    //MessageBox.Show("Applying from selected input player please.");
                 }
 
                 _PresetManager.ApplyPreset(_SelectedTargetPlayer, _SelectedReplacementType);
